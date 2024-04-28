@@ -21,7 +21,7 @@ class CashCardControllerTest {
 
     @Test
     void shouldReturnCashCardWHenDataIsSaved(){
-        ResponseEntity<CashCard> response = cashCardController.getCashCardById("99");
+        ResponseEntity<CashCard> response = cashCardController.getCashCardById(99L);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }

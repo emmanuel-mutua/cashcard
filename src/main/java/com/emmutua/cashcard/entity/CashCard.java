@@ -1,26 +1,22 @@
 package com.emmutua.cashcard.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(
+        name = "CASH_CARDS"
+)
 public class CashCard {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Double amount;
-    public CashCard(Long id, Double v) {
-        this.id = id;
-        this.amount = v;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 }
