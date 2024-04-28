@@ -20,7 +20,7 @@ public class CashCardServiceImpl implements CashCardService{
             CashCard cashCard = getCashCardFromRepo(requestId);
             return cashCard;
         }catch (Exception e) {
-            throw new ApiRequestException(e.getMessage());
+            throw new ApiRequestException(e.getMessage(), e.getCause());
         }
     }
 
