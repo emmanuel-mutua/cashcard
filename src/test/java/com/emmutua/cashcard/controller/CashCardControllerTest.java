@@ -16,9 +16,12 @@ class CashCardControllerTest {
     @Autowired
     TestRestTemplate testRestTemplate;
 
+    @Autowired
+    CashCardController cashCardController;
+
     @Test
     void shouldReturnCashCardWHenDataIsSaved(){
-        ResponseEntity<CashCard> response = testRestTemplate.getForEntity("/cashcards/99", CashCard.class);
+        ResponseEntity<CashCard> response = cashCardController.getCashCardById("99");
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }
