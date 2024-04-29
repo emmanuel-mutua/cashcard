@@ -19,8 +19,7 @@ public class CashCardServiceImpl implements CashCardService{
     @Override
     public CashCard getCashCardById(Long requestId) {
         try {
-            CashCard cashCard = getCashCardFromRepo(requestId);
-            return cashCard;
+            return getCashCardFromRepo(requestId);
         }catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), e.getCause());
         }
@@ -41,8 +40,8 @@ public class CashCardServiceImpl implements CashCardService{
         try {
 
             CashCard cashCard = objectMapper.toCashCard(cashCardDto);
-            cashCard = cashCardRepo.save(cashCard);
-            return getCashCardResponse(newCashCardAdded, cashCard);
+            CashCard saved = cashCardRepo.save(cashCard);
+            return getCashCardResponse(newCashCardAdded, saved);
         }catch (Exception e){
             throw new ApiRequestException(e.getMessage(), e.getCause());
         }

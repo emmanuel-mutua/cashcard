@@ -6,14 +6,12 @@ import com.emmutua.cashcard.entity.CashCard;
 import com.emmutua.cashcard.mapper.ObjectMapper;
 import com.emmutua.cashcard.repository.CashCardRepo;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,9 +67,15 @@ class CashCardServiceImplTest {
 
         //Mock calls. run calls in isolation
         Mockito.when(objectMapper.toCashCard(cashCardDto)).thenReturn(card);
+        Mockito.when(objectMapper.toCashCardDto(savedCard)).thenReturn(
+                 CashCardDto.builder()
+                         .amount(savedCard.getAmount())
+                         .build()
+        );
         Mockito.when(cashCardRepo.save(card)).thenReturn(savedCard);
         CashCardResponse response = cashCardService.saveNewCashCard(cashCardDto);
         assertEquals("New cash card added", response.getMessage());
+        Mockito.verify(cashCardRepo, Mockito.times(1)).save(card);
     }
 
     @Test
