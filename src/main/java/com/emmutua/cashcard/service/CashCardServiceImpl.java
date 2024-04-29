@@ -4,6 +4,7 @@ import com.emmutua.cashcard.dtos.CashCardDto;
 import com.emmutua.cashcard.dtos.CashCardResponse;
 import com.emmutua.cashcard.entity.CashCard;
 import com.emmutua.cashcard.exception.ApiRequestException;
+import com.emmutua.cashcard.mapper.ObjectMapper;
 import com.emmutua.cashcard.repository.CashCardRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CashCardServiceImpl implements CashCardService{
     private final CashCardRepo cashCardRepo;
+    private final ObjectMapper objectMapper;
     @Override
     public CashCard getCashCardById(Long requestId) {
         try {
@@ -34,13 +36,12 @@ public class CashCardServiceImpl implements CashCardService{
     }
 
     @Override
-    public CashCardResponse postNewCashCard(CashCardDto cashCardDto) {
+    public CashCardResponse saveNewCashCard(CashCardDto cashCardDto) {
         String newCashCardAdded = "New cash card added";
         try {
-            CashCard cashCard = CashCard.builder()
-                    .amount(cashCardDto.getAmount())
-                    .build();
-            cashCardRepo.save(cashCard);
+
+            CashCard cashCard = objectMapper.toCashCard(cashCardDto);
+            cashCard = cashCardRepo.save(cashCard);
             return getCashCardResponse(newCashCardAdded, cashCard);
         }catch (Exception e){
             throw new ApiRequestException(e.getMessage(), e.getCause());
@@ -68,7 +69,7 @@ public class CashCardServiceImpl implements CashCardService{
     private CashCardResponse getCashCardResponse(String message, CashCard cashCard){
         CashCardResponse response = CashCardResponse.builder()
                 .id(cashCard.getId())
-                .message("Card updated")
+                .message(message)
                 .build();
         return response;
     }

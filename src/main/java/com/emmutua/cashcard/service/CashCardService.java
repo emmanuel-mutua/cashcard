@@ -7,7 +7,7 @@ import com.emmutua.cashcard.entity.CashCard;
 import java.util.List;
 
 public interface CashCardService {
-    CashCardResponse postNewCashCard(CashCardDto cashCardDto);
+    CashCardResponse saveNewCashCard(CashCardDto cashCardDto);
 
     CashCardResponse updateCashCard(CashCardDto cashCardDto, Long requestId);
 

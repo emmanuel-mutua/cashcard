@@ -18,7 +18,7 @@ public class CashCardController {
 
     @PostMapping
     public ResponseEntity<CashCardResponse> postCashCard(@RequestBody CashCardDto cashCardDto){
-        CashCardResponse response = cashCardService.postNewCashCard(cashCardDto);
+        CashCardResponse response = cashCardService.saveNewCashCard(cashCardDto);
         return ResponseEntity.ok().body(response);
     }
     @PutMapping("/{requestId}")
