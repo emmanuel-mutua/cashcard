@@ -3,6 +3,7 @@ package com.emmutua.cashcard.mapper;
 import com.emmutua.cashcard.dtos.CashCardDto;
 import com.emmutua.cashcard.entity.CashCard;
 import com.emmutua.cashcard.exception.ApiRequestException;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,5 +24,9 @@ public class ObjectMapper {
         return  CashCardDto.builder()
                 .amount(cashCard.getAmount())
                 .build();
+    }
+
+    public ObjectId toObjectId(String requestId){
+        return new ObjectId(requestId);
     }
 }

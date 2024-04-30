@@ -1,22 +1,21 @@
 package com.emmutua.cashcard.entity;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Entity
+@Document
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(
-        name = "CASH_CARDS"
-)
 public class CashCard {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private ObjectId id;
     private Double amount;
 }

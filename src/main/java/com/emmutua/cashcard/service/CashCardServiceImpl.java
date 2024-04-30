@@ -7,6 +7,7 @@ import com.emmutua.cashcard.exception.ApiRequestException;
 import com.emmutua.cashcard.mapper.ObjectMapper;
 import com.emmutua.cashcard.repository.CashCardRepo;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,9 @@ public class CashCardServiceImpl implements CashCardService{
     private final CashCardRepo cashCardRepo;
     private final ObjectMapper objectMapper;
     @Override
-    public CashCard getCashCardById(Long requestId) {
+    public CashCard getCashCardById(String requestId) {
         try {
-            return getCashCardFromRepo(requestId);
+            return getCashCardFromRepo(objectMapper.toObjectId(requestId));
         }catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), e.getCause());
         }
@@ -48,9 +49,9 @@ public class CashCardServiceImpl implements CashCardService{
     }
 
     @Override
-    public CashCardResponse updateCashCard(CashCardDto cashCardDto, Long requestId) {
+    public CashCardResponse updateCashCard(CashCardDto cashCardDto, String requestId) {
         try {
-            CashCard cashCard = getCashCardFromRepo(requestId);
+            CashCard cashCard = getCashCardFromRepo(objectMapper.toObjectId(requestId));
             cashCard.setAmount(cashCardDto.getAmount());
             cashCardRepo.save(cashCard);
             return getCashCardResponse("Card Updated", cashCard);
@@ -59,17 +60,15 @@ public class CashCardServiceImpl implements CashCardService{
         }
     }
 
-    private CashCard getCashCardFromRepo(Long requestId) {
+    private CashCard getCashCardFromRepo(ObjectId requestId) {
         return cashCardRepo.findById(requestId).orElseThrow(
                 () -> new ApiRequestException("Card not found")
         );
     }
 
     private CashCardResponse getCashCardResponse(String message, CashCard cashCard){
-        CashCardResponse response = CashCardResponse.builder()
-                .id(cashCard.getId())
-                .message(message)
-                .build();
+        CashCardResponse response = new CashCardResponse(
+                cashCard.getId(), message);
         return response;
     }
 }

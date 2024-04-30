@@ -5,6 +5,7 @@ import com.emmutua.cashcard.dtos.CashCardResponse;
 import com.emmutua.cashcard.entity.CashCard;
 import com.emmutua.cashcard.service.CashCardService;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,13 @@ public class CashCardController {
     @PutMapping("/{requestId}")
     public ResponseEntity<CashCardResponse> updateCashCard(
             @RequestBody CashCardDto cashCardDto,
-            @PathVariable Long requestId){
+            @PathVariable String  requestId){
         CashCardResponse response = cashCardService.updateCashCard(cashCardDto, requestId);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{requestId}") //handler method for get
-    public ResponseEntity<CashCard> getCashCardById(@PathVariable Long requestId) {
+    public ResponseEntity<CashCard> getCashCardById(@PathVariable String requestId) {
         CashCard response = cashCardService.getCashCardById(requestId);
         return ResponseEntity.ok().body(response);
     }
