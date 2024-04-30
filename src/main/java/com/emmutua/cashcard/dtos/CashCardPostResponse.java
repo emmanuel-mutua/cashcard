@@ -4,20 +4,20 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 @Data
-public class CashCardResponse {
-    private String  exId;
+public class CashCardPostResponse {
+    private String id;
     private String message;
-    public CashCardResponse(ObjectId id, String message) {
-        this.exId = id.toHexString();
+    public CashCardPostResponse(ObjectId id, String message) {
+        this.id = id.toHexString();
         this.message = message;
     }
 
-    public String getExId() {
-        return exId;
+    public String getId() {
+        return id;
     }
 
-    public void setExId(String exId) {
-        this.exId = exId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMessage() {

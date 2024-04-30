@@ -1,18 +1,18 @@
 package com.emmutua.cashcard.service;
 
-import com.emmutua.cashcard.dtos.CashCardDto;
-import com.emmutua.cashcard.dtos.CashCardResponse;
+import com.emmutua.cashcard.dtos.CashCardRequestDto;
+import com.emmutua.cashcard.dtos.CashCardPostResponse;
+import com.emmutua.cashcard.dtos.CashCardResponseDto;
 import com.emmutua.cashcard.entity.CashCard;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
 public interface CashCardService {
-    CashCardResponse saveNewCashCard(CashCardDto cashCardDto);
+    CashCardPostResponse saveNewCashCard(CashCardRequestDto cashCardDto);
 
-    CashCardResponse updateCashCard(CashCardDto cashCardDto, String requestId);
+    CashCardPostResponse updateCashCard(CashCardRequestDto cashCardDto, String requestId);
 
-    CashCard getCashCardById(String requestId);
+    CashCardResponseDto getCashCardById(String requestId);
 
-    List<CashCard> findAll();
+    List<CashCardResponseDto> findAll();
 }

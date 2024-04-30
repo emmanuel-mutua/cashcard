@@ -1,11 +1,10 @@
 package com.emmutua.cashcard.controller;
 
-import com.emmutua.cashcard.dtos.CashCardDto;
-import com.emmutua.cashcard.dtos.CashCardResponse;
-import com.emmutua.cashcard.entity.CashCard;
+import com.emmutua.cashcard.dtos.CashCardRequestDto;
+import com.emmutua.cashcard.dtos.CashCardPostResponse;
+import com.emmutua.cashcard.dtos.CashCardResponseDto;
 import com.emmutua.cashcard.service.CashCardService;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,26 +17,26 @@ public class CashCardController {
     private final CashCardService cashCardService;
 
     @PostMapping
-    public ResponseEntity<CashCardResponse> postCashCard(@RequestBody CashCardDto cashCardDto){
-        CashCardResponse response = cashCardService.saveNewCashCard(cashCardDto);
+    public ResponseEntity<CashCardPostResponse> postCashCard(@RequestBody CashCardRequestDto cashCardDto){
+        CashCardPostResponse response = cashCardService.saveNewCashCard(cashCardDto);
         return ResponseEntity.ok().body(response);
     }
     @PutMapping("/{requestId}")
-    public ResponseEntity<CashCardResponse> updateCashCard(
-            @RequestBody CashCardDto cashCardDto,
+    public ResponseEntity<CashCardPostResponse> updateCashCard(
+            @RequestBody CashCardRequestDto cashCardDto,
             @PathVariable String  requestId){
-        CashCardResponse response = cashCardService.updateCashCard(cashCardDto, requestId);
+        CashCardPostResponse response = cashCardService.updateCashCard(cashCardDto, requestId);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{requestId}") //handler method for get
-    public ResponseEntity<CashCard> getCashCardById(@PathVariable String requestId) {
-        CashCard response = cashCardService.getCashCardById(requestId);
+    public ResponseEntity<CashCardResponseDto> getCashCardById(@PathVariable String requestId) {
+        CashCardResponseDto response = cashCardService.getCashCardById(requestId);
         return ResponseEntity.ok().body(response);
     }
     @GetMapping
-    public ResponseEntity<List<CashCard>> getAllCashCards() {
-        List<CashCard> cashCards = cashCardService.findAll();
+    public ResponseEntity<List<CashCardResponseDto>> getAllCashCards() {
+        List<CashCardResponseDto> cashCards = cashCardService.findAll();
         return ResponseEntity.ok(cashCards);
     }
 }

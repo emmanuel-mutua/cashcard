@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CashCardDto {
+public class CashCardRequestDto {
     private Double amount;
 }
+
