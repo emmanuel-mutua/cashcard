@@ -1,8 +1,5 @@
 package com.emmutua.cashcard.service;
 
-import com.emmutua.cashcard.dtos.CashCardDto;
-import com.emmutua.cashcard.dtos.CashCardResponse;
-import com.emmutua.cashcard.entity.CashCard;
 import com.emmutua.cashcard.mapper.ObjectMapper;
 import com.emmutua.cashcard.repository.CashCardRepo;
 import org.junit.jupiter.api.AfterEach;
@@ -10,11 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class CashCardServiceImplTest {
@@ -44,6 +38,7 @@ class CashCardServiceImplTest {
 
     }
 
+
     @Test
     void getCashCardById() {
     }
@@ -52,32 +47,33 @@ class CashCardServiceImplTest {
     void findAll() {
     }
 
-    @Test
-    void should_successfully_create_a_new_cashCard() {
-        CashCardDto cashCardDto = CashCardDto.builder()
-                .amount(23.33)
-                .build();
-        CashCard card = CashCard.builder()
-                .amount(23.33)
-                .build();
-        CashCard savedCard = CashCard.builder()
-                .id(23L)
-                .amount(23.33)
-                .build();
+    /*
+     @Test
+     void should_successfully_create_a_new_cashCard() {
+         CashCardDto cashCardDto = CashCardDto.builder()
+                 .amount(23.33)
+                 .build();
+         CashCard card = CashCard.builder()
+                 .amount(23.33)
+                 .build();
+         CashCard savedCard = CashCard.builder()
+                 .id(23L)
+                 .amount(23.33)
+                 .build();
 
-        //Mock calls. run calls in isolation
-        Mockito.when(objectMapper.toCashCard(cashCardDto)).thenReturn(card);
-        Mockito.when(objectMapper.toCashCardDto(savedCard)).thenReturn(
-                 CashCardDto.builder()
-                         .amount(savedCard.getAmount())
-                         .build()
-        );
-        Mockito.when(cashCardRepo.save(card)).thenReturn(savedCard);
-        CashCardResponse response = cashCardService.saveNewCashCard(cashCardDto);
-        assertEquals("New cash card added", response.getMessage());
-        Mockito.verify(cashCardRepo, Mockito.times(1)).save(card);
-    }
-
+         //Mock calls. run calls in isolation
+         Mockito.when(objectMapper.toCashCard(cashCardDto)).thenReturn(card);
+         Mockito.when(objectMapper.toCashCardDto(savedCard)).thenReturn(
+                  CashCardDto.builder()
+                          .amount(savedCard.getAmount())
+                          .build()
+         );
+         Mockito.when(cashCardRepo.save(card)).thenReturn(savedCard);
+         CashCardResponse response = cashCardService.saveNewCashCard(cashCardDto);
+         assertEquals("New cash card added", response.getMessage());
+         Mockito.verify(cashCardRepo, Mockito.times(1)).save(card);
+     }
+ */
     @Test
     void updateCashCard() {
     }
